@@ -1,7 +1,14 @@
+using Madomoda.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Setting the options of ApplicationDbContext class by adding the connection string of the sql server database
+builder.Services.AddDbContext<ApplicationDbContext>(options=> 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
