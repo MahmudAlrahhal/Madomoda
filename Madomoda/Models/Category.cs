@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Madomoda.Models
 {
@@ -9,7 +10,11 @@ namespace Madomoda.Models
         public int Id { get; set; }
         //Required means to be not null
         [Required]
+        [MaxLength(20)]
+        [DisplayName("Name of Category")]
         public string Name { get; set; }
+        [DisplayName("Display Order")]
+        [Range(1,100,ErrorMessage ="MyCustomErrorMessage")]
         public int DisplayOrder{ get; set; }
     }
 }

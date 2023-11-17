@@ -22,5 +22,19 @@ namespace Madomoda.Controllers
         {
             return View();
         }
+
+        //This method will receive the posted form from Create.cshtml and store it in cat object.
+        [HttpPost]
+        public IActionResult Create(Category cat)
+        {
+            //checking whether the sent object information is meeting the validation requirements or not.
+            if (ModelState.IsValid) { 
+            _db.Categories.Add(cat);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+            }
+            return View();
+            
+        }
     }
 }
