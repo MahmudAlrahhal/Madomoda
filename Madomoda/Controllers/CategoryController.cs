@@ -33,10 +33,12 @@ namespace Madomoda.Controllers
             //    ModelState.AddModelError("name", "The name of the category cannot be equal to the displayOrder");
             //}
             //checking whether the sent object information is meeting the validation requirements or not.
-            if (ModelState.IsValid) { 
-            _db.Categories.Add(cat);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(cat);
+                _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction("Index");
             }
             return View();
             
@@ -63,6 +65,7 @@ namespace Madomoda.Controllers
             {
                 _db.Categories.Update(cat);
                 _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -88,6 +91,7 @@ namespace Madomoda.Controllers
             if(cat == null) return NotFound();
             _db.Categories.Remove(cat);
             _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
 
 
