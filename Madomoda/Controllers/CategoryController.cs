@@ -1,6 +1,7 @@
 ﻿using Madomoda.Data;
 using Madomoda.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Madomoda.Controllers
 {
@@ -39,6 +40,57 @@ namespace Madomoda.Controllers
             }
             return View();
             
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            Category? editCat = _db.Categories.Find(id);
+            //Category? editCat1 = _db.Categories.FirstOrDefault(d => d.Id == id);
+            //Category? editCat2 = _db.Categories.Where(d => d.Id == id).FirstOrDefault();
+            if (editCat == null) return NotFound();
+
+            return View(editCat);
+        }
+
+        //This method will receive the posted form from Create.cshtml and store it in cat object.
+        [HttpPost]
+        public IActionResult Edit(Category cat)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(cat);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            Category? editCat = _db.Categories.Find(id);
+            if (editCat == null) return NotFound();
+
+            return View(editCat);
+        }
+
+        //This method will receive the posted form from Create.cshtml and store it in cat object.
+        [HttpPost]
+        public IActionResult DeletePost(int? id)
+        {
+            Category? cat = _db.Categories.Find(id);
+            if(cat == null) return NotFound();
+            _db.Categories.Remove(cat);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
+
         }
     }
 }
