@@ -14,7 +14,7 @@ namespace Madomoda.Models
         [DisplayName("Name of Category")]
         public string Name { get; set; }
         [DisplayName("Display Order")]
-        [Range(1,100,ErrorMessage ="MyCustomErrorMessage")]
+        [Range(1,100,ErrorMessage ="The number should be in the range between 1 and 100")]
         public int DisplayOrder{ get; set; }
     }
 }

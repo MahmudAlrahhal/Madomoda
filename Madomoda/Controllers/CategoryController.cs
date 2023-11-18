@@ -27,6 +27,10 @@ namespace Madomoda.Controllers
         [HttpPost]
         public IActionResult Create(Category cat)
         {
+            //if(cat.DisplayOrder.ToString().Equals(cat.Name))
+            //{
+            //    ModelState.AddModelError("name", "The name of the category cannot be equal to the displayOrder");
+            //}
             //checking whether the sent object information is meeting the validation requirements or not.
             if (ModelState.IsValid) { 
             _db.Categories.Add(cat);
