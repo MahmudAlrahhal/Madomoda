@@ -1,4 +1,4 @@
-namespace Madomoda.Models
+namespace MadoModels
 {
     public class ErrorViewModel
     {

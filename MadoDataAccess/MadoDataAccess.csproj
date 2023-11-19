@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MadoDataAccess\MadoDataAccess.csproj" />
     <ProjectReference Include="..\MadoModels\MadoModels.csproj" />
+    <ProjectReference Include="..\MadoUtility\MadoUtility.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Madomoda.Migrations
+namespace MadoDataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class InitialDataAddedtoCategoryTable : Migration

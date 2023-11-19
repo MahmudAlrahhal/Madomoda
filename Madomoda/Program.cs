@@ -1,4 +1,4 @@
-using Madomoda.Data;
+using MadoDataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
