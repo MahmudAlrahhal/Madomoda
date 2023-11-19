@@ -1,7 +1,7 @@
-﻿using Madomoda.Models;
+﻿using MadoModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Madomoda.Data
+namespace MadoDataAccess.Data
 {
     //Creating ApplicationDbContext for setting up the database.
     public class ApplicationDbContext : DbContext

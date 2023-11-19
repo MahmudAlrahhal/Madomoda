@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Madomoda.Migrations
+namespace MadoDataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class addTableofCategoriestoDatabase : Migration

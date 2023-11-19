@@ -1,4 +1,4 @@
-﻿using Madomoda.Models;
+﻿using MadoModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

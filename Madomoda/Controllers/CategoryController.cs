@@ -1,5 +1,5 @@
-﻿using Madomoda.Data;
-using Madomoda.Models;
+﻿using MadoDataAccess.Data;
+using MadoModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 
