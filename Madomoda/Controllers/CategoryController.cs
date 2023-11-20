@@ -1,4 +1,6 @@
 ﻿using MadoDataAccess.Data;
+using MadoDataAccess.Repository;
+using MadoDataAccess.Repository.IRepository;
 using MadoModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -8,15 +10,15 @@ namespace Madomoda.Controllers
     public class CategoryController : Controller
     {
         //Retrieving the db object from ApplicationDbContext to get the data
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryRepository RpoRepository;
+        public CategoryController(ICategoryRepository db)
         {
-                _db = db;
+            RpoRepository = db;
         }
         public IActionResult Index()
         {
             //Inserting the data inside a List of Category type class.
-            List<Category> categories = _db.Categories.ToList();
+            List<Category> categories = RpoRepository.GetAll().ToList();
             return View(categories);
         }
         public IActionResult Create()
@@ -35,8 +37,8 @@ namespace Madomoda.Controllers
             //checking whether the sent object information is meeting the validation requirements or not.
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(cat);
-                _db.SaveChanges();
+                RpoRepository.Add(cat);
+                RpoRepository.save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -49,7 +51,7 @@ namespace Madomoda.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            Category? editCat = _db.Categories.Find(id);
+            Category? editCat = RpoRepository.Get(u=>u.Id==id);
             //Category? editCat1 = _db.Categories.FirstOrDefault(d => d.Id == id);
             //Category? editCat2 = _db.Categories.Where(d => d.Id == id).FirstOrDefault();
             if (editCat == null) return NotFound();
@@ -63,8 +65,8 @@ namespace Madomoda.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(cat);
-                _db.SaveChanges();
+                RpoRepository.update(cat);
+                RpoRepository.save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
@@ -77,20 +79,20 @@ namespace Madomoda.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            Category? editCat = _db.Categories.Find(id);
-            if (editCat == null) return NotFound();
+            Category? deletecat = RpoRepository.Get(u => u.Id == id);
+            if (deletecat == null) return NotFound();
 
-            return View(editCat);
+            return View(deletecat);
         }
 
         //This method will receive the posted form from Create.cshtml and store it in cat object.
         [HttpPost]
         public IActionResult DeletePost(int? id)
         {
-            Category? cat = _db.Categories.Find(id);
+            Category? cat = RpoRepository.Get(u => u.Id == id);
             if(cat == null) return NotFound();
-            _db.Categories.Remove(cat);
-            _db.SaveChanges();
+            RpoRepository.Delete(cat);
+            RpoRepository.save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
 
