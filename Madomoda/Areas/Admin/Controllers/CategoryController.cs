@@ -5,17 +5,17 @@ using MadoModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 
-namespace Madomoda.Controllers
+namespace Madomoda.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
         //Retrieving the db object from ApplicationDbContext to get the data
         private readonly IunitofWork UnitofWork;
-       // private readonly CategoryRespository RpoRepository;
+        // private readonly CategoryRespository RpoRepository;
         public CategoryController(IunitofWork db)//, CategoryRespository RpoRepository)
         {
             UnitofWork = db;
-           // this.RpoRepository = RpoRepository;
+            // this.RpoRepository = RpoRepository;
         }
         public IActionResult Index()
         {
@@ -41,12 +41,12 @@ namespace Madomoda.Controllers
             if (ModelState.IsValid)
             {
                 UnitofWork.CategoryRepository.Add(cat);
-                UnitofWork.CategoryRepository.save();
+                UnitofWork.save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
             return View();
-            
+
         }
 
         public IActionResult Edit(int? id)
@@ -54,7 +54,7 @@ namespace Madomoda.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            Category? editCat = UnitofWork.CategoryRepository.Get(u=>u.Id==id);
+            Category? editCat = UnitofWork.CategoryRepository.Get(u => u.Id == id);
             //Category? editCat1 = _db.Categories.FirstOrDefault(d => d.Id == id);
             //Category? editCat2 = _db.Categories.Where(d => d.Id == id).FirstOrDefault();
             if (editCat == null) return NotFound();
@@ -93,7 +93,7 @@ namespace Madomoda.Controllers
         public IActionResult DeletePost(int? id)
         {
             Category? cat = UnitofWork.CategoryRepository.Get(u => u.Id == id);
-            if(cat == null) return NotFound();
+            if (cat == null) return NotFound();
             UnitofWork.CategoryRepository.Delete(cat);
             UnitofWork.save();
             TempData["success"] = "Category deleted successfully";
