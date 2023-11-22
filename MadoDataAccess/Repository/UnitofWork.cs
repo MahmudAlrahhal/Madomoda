@@ -11,11 +11,14 @@ namespace MadoDataAccess.Repository
     public class UnitofWork : IunitofWork
     {
         public ICategoryRepository CategoryRepository { get; private set; }
+        public IProductRepository ProductRepository { get; private set; }
+
         private ApplicationDbContext _db;
-        public UnitofWork(ApplicationDbContext _db)
+        public UnitofWork(ApplicationDbContext db)
         {
-            this._db = _db;
+            this._db = db;
             CategoryRepository = new CategoryRespository(_db);
+            ProductRepository = new ProductRepository(_db);
         }
         public void save()
         {

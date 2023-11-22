@@ -9,6 +9,7 @@ namespace MadoDataAccess.Repository.IRepository
     public interface IunitofWork
     {
         ICategoryRepository CategoryRepository { get; }
+        IProductRepository ProductRepository { get; }
         public void save();
     }
 }
