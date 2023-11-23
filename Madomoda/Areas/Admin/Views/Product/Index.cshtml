@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var cat in Model)
+            @foreach (var cat in Model.ToList())
             {
                 <tr>
                     <th>@cat.Title</th>
