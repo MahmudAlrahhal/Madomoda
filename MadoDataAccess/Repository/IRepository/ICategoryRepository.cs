@@ -1,4 +1,4 @@
-﻿using MadoModels;
+﻿using MadoModels.Models;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;

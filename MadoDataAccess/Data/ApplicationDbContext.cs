@@ -1,4 +1,4 @@
-﻿using MadoModels;
+﻿using MadoModels.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MadoDataAccess.Data
@@ -34,7 +34,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 120,
                     Price = 110,
                     Price50 = 105,
-                    Price100 = 100
+                    Price100 = 100,
+                    CategoryId = 4,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -46,7 +48,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 50,
                     Price = 40,
                     Price50 = 35,
-                    Price100 = 30
+                    Price100 = 30,
+                    CategoryId = 5,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -58,7 +62,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 65,
                     Price = 60,
                     Price50 = 50,
-                    Price100 = 45
+                    Price100 = 45,
+                    CategoryId = 6,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -70,7 +76,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 90,
                     Price = 85,
                     Price50 = 80,
-                    Price100 = 75
+                    Price100 = 75,
+                    CategoryId = 5,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -82,7 +90,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 40,
                     Price = 37,
                     Price50 = 35,
-                    Price100 = 30
+                    Price100 = 30,
+                    CategoryId = 5,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -94,7 +104,9 @@ namespace MadoDataAccess.Data
                     ListPrice = 35,
                     Price = 33,
                     Price50 = 32,
-                    Price100 = 30
+                    Price100 = 30,
+                    CategoryId = 5,
+                    ImageUrl = ""
                 }
 
                 );

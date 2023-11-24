@@ -1,4 +1,4 @@
-﻿using MadoModels;
+﻿using MadoModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
