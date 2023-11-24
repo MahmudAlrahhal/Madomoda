@@ -1,6 +1,6 @@
 ﻿using MadoDataAccess.Data;
 using MadoDataAccess.Repository.IRepository;
-using MadoModels;
+using MadoModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -39,6 +39,9 @@
                 <th>
                     Price for 100+
                 </th>
+                <th>
+                    Category
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -53,6 +56,7 @@
                     <th>@cat.Price</th>
                     <th>@cat.Price50</th>
                     <th>@cat.Price100</th>
+                    <th>@cat.CategoryId</th>
                     <th>
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Product" asp-action="Edit" asp-route-id="@cat.Id" class="btn btn-primary mx-2">

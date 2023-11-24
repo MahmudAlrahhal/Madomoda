@@ -1,7 +1,7 @@
 ﻿using MadoDataAccess.Data;
 using MadoDataAccess.Repository;
 using MadoDataAccess.Repository.IRepository;
-using MadoModels;
+using MadoModels.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 

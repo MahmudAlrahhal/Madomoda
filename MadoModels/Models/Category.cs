@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MadoModels
+namespace MadoModels.Models
 {
     //Creating the category model to use it as a table in the database using DbSet in ApplicationDbContext class.
     public class Category

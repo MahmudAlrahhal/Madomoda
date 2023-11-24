@@ -1,7 +1,9 @@
 ﻿using MadoDataAccess.Repository;
 using MadoDataAccess.Repository.IRepository;
-using MadoModels;
+using MadoModels.Models;
+using MadoModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Madomoda.Areas.Admin.Controllers
 {
@@ -14,16 +16,29 @@ namespace Madomoda.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+
             return View(_IunitofWork.ProductRepository.GetAll().ToList());
         }
         public IActionResult Create()
         {
-            return View();
+            IEnumerable<SelectListItem> categoryList = _IunitofWork.CategoryRepository
+            .GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            //ViewBag.CatList = categoryList;
+            ViewData["CatList"] = categoryList;
+            PVM pvm = new (){
+                product = new Product(),
+                categoryList = categoryList
+            };
+            return View(pvm);
         }
         [HttpPost]
         public IActionResult Create(Product product)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _IunitofWork.ProductRepository.Add(product);
                 _IunitofWork.save();
@@ -36,7 +51,7 @@ namespace Madomoda.Areas.Admin.Controllers
             if (id == null || id == 0) return NotFound();
             Product product = _IunitofWork.ProductRepository.Get(u => u.Id == id);
             return View(product);
-            
+
         }
         [HttpPost]
         public IActionResult Edit(Product product)
@@ -55,7 +70,7 @@ namespace Madomoda.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 Product pro = _IunitofWork.ProductRepository.Get(ui => ui.Id == id);
-                if(pro == null) return NotFound();
+                if (pro == null) return NotFound();
                 return View(pro);
             }
             return NotFound();
@@ -71,7 +86,7 @@ namespace Madomoda.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(product);
-        }    
-        
+        }
+
     }
 }

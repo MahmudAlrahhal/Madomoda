@@ -3,6 +3,7 @@ using MadoDataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MadoDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231124121449_addingaForiegnKeyForCategoryProductRelation")]
+    partial class addingaForiegnKeyForCategoryProductRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,10 +88,6 @@ namespace MadoDataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -119,7 +118,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 4,
                             Description = "Embark on a timeless adventure with 'Eternal Journey.' This captivating tale weaves through the tapestry of existence, offering a mesmerizing blend of mystery and introspection.\r\n\r\nJourney into the unknown as you explore the depths of the human soul.",
                             ISBN = "EJ2023001",
-                            ImageUrl = "",
                             ListPrice = 120.0,
                             Price = 110.0,
                             Price100 = 100.0,
@@ -133,7 +131,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 5,
                             Description = "Step into the enigmatic world of 'Whispers in the Shadows,' where every page holds secrets untold. Unravel the mysteries that linger in the darkest corners of the mind, and let the shadows reveal their hidden truths.\r\n\r\nDare to uncover the secrets within.",
                             ISBN = "WIS987654321",
-                            ImageUrl = "",
                             ListPrice = 50.0,
                             Price = 40.0,
                             Price100 = 30.0,
@@ -147,7 +144,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 6,
                             Description = "Find solace in the pages of 'Serenity's Embrace,' a tale that unfolds like a gentle breeze. Allow the words to carry you to a world of tranquility and self-discovery, where every moment is a step towards inner peace.\r\n\r\nEmbrace the serenity within.",
                             ISBN = "SE20231234",
-                            ImageUrl = "",
                             ListPrice = 65.0,
                             Price = 60.0,
                             Price100 = 45.0,
@@ -161,7 +157,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 5,
                             Description = "Indulge in the delightful notes of 'Sweet Symphony,' a harmonious blend of emotions and flavors. Let the story unfold like a sugary melody, leaving a lingering taste of joy and wonder on your literary palate.\r\n\r\nExperience the sweetness of life.",
                             ISBN = "SS123456789",
-                            ImageUrl = "",
                             ListPrice = 90.0,
                             Price = 85.0,
                             Price100 = 75.0,
@@ -175,7 +170,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 5,
                             Description = "Plunge into the depths of 'Echoes of the Abyss,' where echoes of forgotten realms resonate. Navigate the mysterious currents of the ocean of time, and let the waves of the narrative carry you to uncharted territories.\r\n\r\nDiscover the echoes that linger beyond the horizon.",
                             ISBN = "EOTA5678901",
-                            ImageUrl = "",
                             ListPrice = 40.0,
                             Price = 37.0,
                             Price100 = 30.0,
@@ -189,7 +183,6 @@ namespace MadoDataAccess.Migrations
                             CategoryId = 5,
                             Description = "Listen to the 'Whispers Among the Leaves,' where nature's secrets are revealed. The rustle of leaves tells tales of ancient wonders and timeless beauty. Immerse yourself in the delicate dance of life that unfolds beneath the leafy canopy.\r\n\r\nExperience the magic of nature's whispers.",
                             ISBN = "WAL987654321",
-                            ImageUrl = "",
                             ListPrice = 35.0,
                             Price = 33.0,
                             Price100 = 30.0,
