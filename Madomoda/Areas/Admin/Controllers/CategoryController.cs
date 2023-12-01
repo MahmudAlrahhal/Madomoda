@@ -18,7 +18,7 @@ namespace Madomoda.Areas.Admin.Controllers
             // this.RpoRepository = RpoRepository;
         }
         public IActionResult Index()
-        {
+        { 
             //Inserting the data inside a List of Category type class.
             //List<Category> categories = RpoRepository.GetAll().ToList();
             List<Category> categories = UnitofWork.CategoryRepository.GetAll().ToList();
