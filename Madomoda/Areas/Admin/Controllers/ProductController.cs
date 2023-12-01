@@ -2,6 +2,7 @@
 using MadoDataAccess.Repository.IRepository;
 using MadoModels.Models;
 using MadoModels.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -10,60 +11,94 @@ namespace Madomoda.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IunitofWork _IunitofWork;
-        public ProductController(IunitofWork IunitofWork)
+        private readonly IWebHostEnvironment webHost;
+        public ProductController(IunitofWork IunitofWork, IWebHostEnvironment webHost)
         {
             this._IunitofWork = IunitofWork;
+            this.webHost = webHost;
         }
         public IActionResult Index()
         {
 
             return View(_IunitofWork.ProductRepository.GetAll().ToList());
         }
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            IEnumerable<SelectListItem> categoryList = _IunitofWork.CategoryRepository
-            .GetAll().Select(u => new SelectListItem
+            PVM productVM = new()
             {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            //ViewBag.CatList = categoryList;
-            ViewData["CatList"] = categoryList;
-            PVM pvm = new (){
-                product = new Product(),
-                categoryList = categoryList
+                categoryList = _IunitofWork.CategoryRepository.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                product = new Product()
             };
-            return View(pvm);
-        }
-        [HttpPost]
-        public IActionResult Create(Product product)
-        {
-            if (ModelState.IsValid)
+            if (id == null || id == 0)
             {
-                _IunitofWork.ProductRepository.Add(product);
-                _IunitofWork.save();
-                return RedirectToAction("Index", _IunitofWork.ProductRepository.GetAll());
+                //create
+                return View(productVM);
             }
-            return View();
-        }
-        public IActionResult Edit(int id)
-        {
-            if (id == null || id == 0) return NotFound();
-            Product product = _IunitofWork.ProductRepository.Get(u => u.Id == id);
-            return View(product);
+            else
+            {
+                //update
+                productVM.product = _IunitofWork.ProductRepository.Get(u => u.Id == id);
+                return View(productVM);
+            }
 
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Upsert(PVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
-                _IunitofWork.ProductRepository.update(product);
+                string wwwRootPath = webHost.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    if (!string.IsNullOrEmpty(productVM.product.ImageUrl))
+                    {
+                        //delete the old image
+                        var oldImagePath =
+                            Path.Combine(wwwRootPath, productVM.product.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    productVM.product.ImageUrl = @"\images\product\" + fileName;
+                }
+
+                if (productVM.product.Id == 0)
+                {
+                    _IunitofWork.ProductRepository.Add(productVM.product);
+                }
+                else
+                {
+                    _IunitofWork.ProductRepository.update(productVM.product);
+                }
+
                 _IunitofWork.save();
-                TempData["Success"] = "Product was updated successfully";
+                TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                productVM.categoryList = _IunitofWork.CategoryRepository.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+                return View(productVM);
+            }
         }
         public IActionResult Delete(int id)
         {
@@ -78,14 +113,10 @@ namespace Madomoda.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Delete(Product product)
         {
-            if (ModelState.IsValid)
-            {
-                _IunitofWork.ProductRepository.Delete(product);
-                _IunitofWork.save();
-                TempData["Success"] = "Product was deleted successfully";
-                return RedirectToAction("Index");
-            }
-            return View(product);
+            _IunitofWork.ProductRepository.Delete(product);
+            _IunitofWork.save();
+            TempData["Success"] = "Product was deleted successfully";
+            return RedirectToAction("Index");
         }
 
     }

@@ -1,0 +1,103 @@
+﻿@model MadoModels.ViewModels.PVM
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="product.Id" hidden />
+    <input asp-for="product.ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 border-4">
+                <!--padding 3 and margin top of 4-->
+                <div class="row pb-2">
+                    <!--padding bottom of 2-->
+                    <h2 class="text-primary">@(Model.product.Id != 0 ? "Update" : "Create") Product</h2>
+                    <hr /> <!--Horizontal line-->
+                </div>
+                <div asp-validation-summary="All"></div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Title" class="p-0"></label>
+                    <input asp-for="product.Title" type="text" class="form-control border border-3" />
+                    <span asp-validation-for="product.Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Description" class="p-0"></label>
+                    <textarea asp-for="product.Description" type="text" class="form-control border border-3"></textarea>
+                    <span asp-validation-for="product.Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Author" class="p-0"></label>
+                    <input asp-for="product.Author" type="text" class="form-control border border-3" />
+                    <span asp-validation-for="product.Author" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.ISBN" class="p-0"></label>
+                    <input asp-for="product.ISBN" type="text" class="form-control border border-3" />
+                    <span asp-validation-for="product.ISBN" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.CategoryId" class="p-0"></label>
+                    @*</><select asp-for="CategoryId" asp-items="ViewBag.CatList" class="form-select border-0 shadow">*@
+                    <select asp-for="product.CategoryId" asp-items="Model.categoryList" class="form-select border-0 shadow">
+                        </>
+                        <option disabled selected>--Select a Category--</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.ListPrice" class="p-0"></label>
+                    <input asp-for="product.ListPrice" type="number" class="form-control border border-3" />
+                    <span asp-validation-for="product.ListPrice" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Price" class="p-0"></label>
+                    <input asp-for="product.Price" type="number" class="form-control border border-3" />
+                    <span asp-validation-for="product.Price" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Price50" class="p-0"></label>
+                    <input asp-for="product.Price50" type="number" class="form-control border border-3" />
+                    <span asp-validation-for="product.Price50" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.Price100" class="p-0"></label>
+                    <input asp-for="product.Price100" type="number" class="form-control border border-3" />
+                    <span asp-validation-for="product.Price100" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="product.ImageUrl" class="p-0"></label>
+                    <input type="file" name="file" class="form-control border border-3" />
+                    <span asp-validation-for="product.ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    @if (Model.product.Id != 0)
+                    {
+                        <div class="col-6 col-md-3">
+                            <!--If the screen size is larger than medium, take just 3 columns-->
+                            <button type="submit" class="btn btn-primary form-control">Edit Product</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-6 col-md-3">
+                            <!--If the screen size is larger than medium, take just 3 columns-->
+                            <button type="submit" class="btn btn-primary form-control">Add new Product</button>
+                        </div>
+                    }
+
+                    <div class="col-6 col-md-3">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="form-control btn btn-outline-secondary">Return to Product List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <img src="@Model.product.ImageUrl" width="100%"
+                 style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+    </div>
+    
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
