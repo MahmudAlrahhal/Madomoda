@@ -19,8 +19,8 @@ namespace Madomoda.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-
-            return View(_IunitofWork.ProductRepository.GetAll().ToList());
+            List<Product> prdt = _IunitofWork.ProductRepository.GetAll("Category").ToList();
+            return View(prdt);
         }
         public IActionResult Upsert(int? id)
         {
